@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  transmission:
+    image: haugene/transmission-openvpn:latest-armhf
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    restart: always
+    ports:
+      - "9091:9091"
+      - "8888:8888"
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/usb/transmission/:/data
+    env_file:
+      - ./transmission.env
+
+  proxy:
+    image: haugene/transmission-openvpn-proxy:latest-armhf
+    links:
+      - transmission
+    ports:
+      - "8080:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+  ddns:
+    image: treppo/cloudflare-ddns:latest
+    read_only: true
+    volumes:
+      - /mnt/usb/ddns:/app/dynamic-dns/log
+    env_file:
+      - ./ddns.env
