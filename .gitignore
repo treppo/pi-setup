@@ -1,1 +1,4 @@
 *.env
+.idea
+/test/web/cache/
+/test/transmission/transmission-home/

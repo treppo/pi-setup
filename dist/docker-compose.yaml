@@ -21,18 +21,16 @@ services:
       - ./transmission.env
 
   web:
-    image: arm32v7/nginx
+    image: treppo/nginx-cloudflare-ddns:latest-armhf
+    read_only: true
+    user: "666"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $PWD/nginx:/etc/nginx:ro
-      - /mnt/usb/web:/var/www/html/:ro
-    ports:
-      - "8080:80"
-
-  ddns:
-    image: treppo/cloudflare-ddns:latest
-    read_only: true
-    volumes:
-      - /mnt/usb/ddns:/var/cache/dynamic-dns
+      - /tmp/nginx:/var/tmp/nginx
+      - /mnt/usb/web/html:/var/www/html/:ro
+      - /mnt/usb/web/cache/dynamic-dns:/var/cache/dynamic-dns
+      - /mnt/usb/web/cache/nginx:/var/cache/nginx
     env_file:
       - ./ddns.env
+    ports:
+      - "8080:8080"
