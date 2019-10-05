@@ -21,16 +21,17 @@ services:
       - ./transmission.env
 
   web:
-    image: treppo/nginx-cloudflare-ddns:latest-armhf
+    image: treppo/ddns-http-server:latest-armhf
     read_only: true
-    user: "666"
+#    user: "666"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /tmp/nginx:/var/tmp/nginx
-      - /mnt/usb/web/html:/var/www/html/:ro
-      - /mnt/usb/web/cache/dynamic-dns:/var/cache/dynamic-dns
-      - /mnt/usb/web/cache/nginx:/var/cache/nginx
+      - /mnt/usb/web/:/var/cache/web/
+    environment:
+      - HTTPS_PORT=8443
+      - HTTP_PORT=8080
     env_file:
       - ./ddns.env
     ports:
       - "8080:8080"
+      - "8443:8443"

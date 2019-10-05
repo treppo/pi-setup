@@ -1,0 +1,19 @@
+treppo.org
+
+root treppo.org
+
+gzip
+
+tls {$ACME_EMAIL} {
+    dns cloudflare
+}
+
+dyndns {
+	provider cloudflare
+	ipaddress https://icanhazip.com/
+ 	auth {$CLOUDFLARE_API_KEY} {$CLOUDFLARE_EMAIL}
+ 	domains treppo.org
+ 	period 5m
+}
+
+git https://github.com/treppo/treppo.github.io.git
