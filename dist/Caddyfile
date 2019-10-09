@@ -16,4 +16,6 @@ dyndns {
  	period 5m
 }
 
-git https://github.com/treppo/treppo.github.io.git
+git https://github.com/treppo/treppo.org.git {
+    hook /webhook {$GITHUB_WEBHOOK_SECRET}
+}
