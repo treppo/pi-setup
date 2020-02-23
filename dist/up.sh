@@ -11,4 +11,4 @@ cp Caddyfile /mnt/usb/web
 
 PATH=/home/pi/.local/bin:$PATH
 
-docker-compose pull && docker-compose restart || docker-compose up --detach
+docker-compose pull && docker-compose down && docker-compose up --detach
