@@ -24,6 +24,7 @@ services:
     image: treppo/ddns-http-server:latest-armhf
     read_only: true
 #    user: "666"
+    restart: always
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/usb/web/:/var/cache/web/
