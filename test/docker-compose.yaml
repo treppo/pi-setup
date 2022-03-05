@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  transmission:
+    image: haugene/transmission-openvpn:4.0
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "9091:9091"
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - TZ=Europe/Madrid
+    volumes:
+      - "$PWD/transmission/:/data"
+    env_file:
+      - $PWD/../dist/transmission.env

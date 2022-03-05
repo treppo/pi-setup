@@ -2,5 +2,5 @@
 
 set -ex
 
-scp -r "$PWD"/dist/* pi@192.168.1.128:/home/pi
-ssh pi@192.168.1.128 /home/pi/up.sh
+scp -r "$PWD"/dist/* pi@192.168.1.244:/home/pi
+ssh pi@192.168.1.244 /home/pi/up.sh
